@@ -82,8 +82,8 @@ const AdminPanel: React.FC<AdminPanelProps> = ({ config, onConfigChange }) => {
           <Grid item xs={12}>
             <FormControl fullWidth>
               <InputLabel>Page 2 Components</InputLabel>
-              <br />
               <Select
+                label="Page 2 Components"
                 multiple
                 value={config.page2Components}
                 onChange={handleChange("page2Components")}
@@ -109,9 +109,9 @@ const AdminPanel: React.FC<AdminPanelProps> = ({ config, onConfigChange }) => {
           {/* Page 3 Configuration */}
           <Grid item xs={12}>
             <FormControl fullWidth>
-              <InputLabel>Page 3 Components</InputLabel>
-              <br />
+              <InputLabel>Page 3 Components </InputLabel>
               <Select
+                label="Page 3 Components"
                 multiple
                 value={config.page3Components}
                 onChange={handleChange("page3Components")}
