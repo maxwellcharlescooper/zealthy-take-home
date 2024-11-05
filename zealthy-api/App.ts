@@ -7,7 +7,12 @@ import dotenv from "dotenv";
 dotenv.config();
 
 const app = express();
-app.use(cors());
+const allowedOrigins = process.env.CORS_ORIGIN || "http://localhost:3000";
+app.use(
+  cors({
+    origin: allowedOrigins
+  })
+);
 app.use(express.json());
 
 // Initialize Supabase client
