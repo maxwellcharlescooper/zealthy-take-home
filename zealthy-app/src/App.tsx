@@ -4,7 +4,7 @@ import OnboardingFlow from "./components/onboarding/OnboardingFlow";
 import AdminPanel from "./components/admin/AdminPanel";
 import DataTable from "./components/data/DataTable";
 import { api } from "./api";
-import { ComponentType, Config } from "./types";
+import { Config } from "./types";
 
 const defaultConfig: Config = {
   page2Components: ["about", "birthdate"],
@@ -15,10 +15,17 @@ const App: React.FC = () => {
   const [config, setConfig] = useState<Config>(defaultConfig);
 
   useEffect(() => {
-    api
-      .getConfig()
-      .then(setConfig)
-      .catch(() => setConfig(defaultConfig));
+    const fetchConfig = async () => {
+      try {
+        const data = await api.getConfig();
+        setConfig(data);
+      } catch (error) {
+        console.error("Failed to fetch config:", error);
+        setConfig(defaultConfig);
+      }
+    };
+
+    fetchConfig();
   }, []);
 
   const handleConfigUpdate = async (newConfig: Config) => {

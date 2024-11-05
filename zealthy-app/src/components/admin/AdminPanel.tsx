@@ -82,6 +82,7 @@ const AdminPanel: React.FC<AdminPanelProps> = ({ config, onConfigChange }) => {
           <Grid item xs={12}>
             <FormControl fullWidth>
               <InputLabel>Page 2 Components</InputLabel>
+              <br />
               <Select
                 multiple
                 value={config.page2Components}
@@ -109,6 +110,7 @@ const AdminPanel: React.FC<AdminPanelProps> = ({ config, onConfigChange }) => {
           <Grid item xs={12}>
             <FormControl fullWidth>
               <InputLabel>Page 3 Components</InputLabel>
+              <br />
               <Select
                 multiple
                 value={config.page3Components}

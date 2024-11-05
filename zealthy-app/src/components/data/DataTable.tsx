@@ -6,19 +6,53 @@ import {
   TableContainer,
   TableHead,
   TableRow,
-  Paper
+  Paper,
+  Box,
+  Alert,
+  CircularProgress
 } from "@mui/material";
 import { api } from "../../api";
 
 const DataTable: React.FC = () => {
   const [users, setUsers] = useState<any[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string>("");
 
   useEffect(() => {
-    api.getUsers().then(setUsers);
+    const fetchUsers = async () => {
+      try {
+        setLoading(true);
+        const data = await api.getUsers();
+        setUsers(data);
+      } catch (error) {
+        console.error("Failed to fetch users:", error);
+        setError("Failed to load users. Please try again later.");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchUsers();
   }, []);
 
+  if (loading) {
+    return (
+      <Box sx={{ display: "flex", justifyContent: "center", m: 4 }}>
+        <CircularProgress />
+      </Box>
+    );
+  }
+
+  if (error) {
+    return (
+      <Box sx={{ m: 4 }}>
+        <Alert severity="error">{error}</Alert>
+      </Box>
+    );
+  }
+
   return (
-    <TableContainer component={Paper} sx={{ m: 4 }}>
+    <TableContainer component={Paper} sx={{ m: 4, maxWidth: 0.9 }}>
       <Table>
         <TableHead>
           <TableRow>
