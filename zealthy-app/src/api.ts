@@ -26,7 +26,7 @@ export const api = {
 
   // User endpoints
   async createUser(userData: Partial<UserData>) {
-    const response = await fetch(`${API_URL}/api/createUser`, {
+    const response = await fetch(`${API_URL}/api/users/createUser`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json"

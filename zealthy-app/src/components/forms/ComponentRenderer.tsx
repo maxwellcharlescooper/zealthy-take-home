@@ -1,7 +1,10 @@
 import React from "react";
-import { Box, TextField } from "@mui/material";
+import { Box } from "@mui/material";
 import { ComponentType, UserData } from "../../types";
 
+import { AboutField } from "./fields/AboutField";
+import { AddressField } from "./fields/AddressField";
+import { BirthdateField } from "./fields/BirthdateField";
 interface ComponentRendererProps {
   components: ComponentType[];
   data: UserData;
@@ -13,86 +16,33 @@ const ComponentRenderer: React.FC<ComponentRendererProps> = ({
   data,
   onChange
 }) => {
-  const renderComponent = (type: ComponentType) => {
+  const componentMap: Record<ComponentType, React.FC<any>> = {
+    about: AboutField,
+    address: AddressField,
+    birthdate: BirthdateField
+  };
+
+  const getComponentProps = (type: ComponentType) => {
     switch (type) {
       case "about":
-        return (
-          <TextField
-            fullWidth
-            multiline
-            rows={4}
-            label="About Me"
-            value={data.about || ""}
-            onChange={e => onChange({ about: e.target.value })}
-          />
-        );
+        return { value: data.about };
       case "address":
-        return (
-          <Box>
-            <TextField
-              fullWidth
-              label="Street"
-              value={data.address?.street || ""}
-              onChange={e =>
-                onChange({
-                  address: { ...data.address, street: e.target.value }
-                })
-              }
-              sx={{ mb: 2 }}
-            />
-            <TextField
-              fullWidth
-              label="City"
-              value={data.address?.city || ""}
-              onChange={e =>
-                onChange({
-                  address: { ...data.address, city: e.target.value }
-                })
-              }
-              sx={{ mb: 2 }}
-            />
-            <TextField
-              fullWidth
-              label="State"
-              value={data.address?.state || ""}
-              onChange={e =>
-                onChange({
-                  address: { ...data.address, state: e.target.value }
-                })
-              }
-              sx={{ mb: 2 }}
-            />
-            <TextField
-              fullWidth
-              label="ZIP"
-              value={data.address?.zip || ""}
-              onChange={e =>
-                onChange({
-                  address: { ...data.address, zip: e.target.value }
-                })
-              }
-            />
-          </Box>
-        );
+        return { value: data.address };
       case "birthdate":
-        return (
-          <TextField
-            fullWidth
-            type="date"
-            label="Birthdate"
-            value={data.birthdate || ""}
-            onChange={e => onChange({ birthdate: e.target.value })}
-            InputLabelProps={{ shrink: true }}
-          />
-        );
+        return { value: data.birthdate };
     }
   };
 
   return (
     <Box sx={{ display: "flex", flexDirection: "column", gap: 3 }}>
-      {components.map(type => (
-        <Box key={type}>{renderComponent(type)}</Box>
-      ))}
+      {components.map(type => {
+        const Component = componentMap[type];
+        return (
+          <Box key={type}>
+            <Component {...getComponentProps(type)} onChange={onChange} />
+          </Box>
+        );
+      })}
     </Box>
   );
 };

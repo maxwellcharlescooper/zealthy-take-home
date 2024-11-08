@@ -16,9 +16,9 @@
     "typescript": "^5.0.4"
   },
   "scripts": {
-    "dev": "nodemon src/server.ts",
+    "dev": "nodemon src/app.ts",
     "build": "tsc",
-    "start": "node dist/server.js"
+    "start": "node dist/app.js"
   },
   "type": "module"
 }

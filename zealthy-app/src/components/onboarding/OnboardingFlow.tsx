@@ -115,7 +115,10 @@ const OnboardingFlow: React.FC<OnboardingFlowProps> = ({ config }) => {
 
         <Box sx={{ mt: 3, display: "flex", justifyContent: "space-between" }}>
           {activeStep > 0 && (
-            <Button onClick={() => setActiveStep(prev => prev - 1)}>
+            <Button
+              onClick={() => setActiveStep(prev => prev - 1)}
+              disabled={activeStep === 1}
+            >
               Back
             </Button>
           )}

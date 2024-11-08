@@ -40,29 +40,32 @@ const AdminPanel: React.FC<AdminPanelProps> = ({ config, onConfigChange }) => {
       [page]: newComponents
     };
 
-    // Validate selection
-    const allComponents = [
-      ...newConfig.page2Components,
-      ...newConfig.page3Components
-    ];
-    const hasDuplicates = allComponents.length !== new Set(allComponents).size;
-
-    if (hasDuplicates) {
-      setError("Components cannot be used on multiple pages");
-      return;
-    }
-
-    if (newComponents.length === 0) {
-      setError("Each page must have at least one component");
-      return;
-    }
-
     onConfigChange(newConfig);
   };
 
   // Save configuration
   const handleSave = async () => {
     try {
+      // Validate configuration before saving
+      const allComponents = [
+        ...config.page2Components,
+        ...config.page3Components
+      ];
+      const hasDuplicates =
+        allComponents.length !== new Set(allComponents).size;
+
+      if (hasDuplicates) {
+        setError("Components cannot be used on multiple pages");
+        return;
+      }
+
+      if (
+        config.page2Components.length === 0 ||
+        config.page3Components.length === 0
+      ) {
+        setError("Each page must have at least one component");
+        return;
+      }
       await api.updateConfig(config);
       setSuccess("Configuration saved successfully");
     } catch (err) {
