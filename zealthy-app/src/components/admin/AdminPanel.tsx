@@ -97,11 +97,7 @@ const AdminPanel: React.FC<AdminPanelProps> = ({ config, onConfigChange }) => {
                 }
               >
                 {(Object.keys(COMPONENTS) as ComponentType[]).map(comp => (
-                  <MenuItem
-                    key={comp}
-                    value={comp}
-                    disabled={config.page3Components.includes(comp)}
-                  >
+                  <MenuItem key={comp} value={comp}>
                     {COMPONENTS[comp]}
                   </MenuItem>
                 ))}
@@ -125,11 +121,7 @@ const AdminPanel: React.FC<AdminPanelProps> = ({ config, onConfigChange }) => {
                 }
               >
                 {(Object.keys(COMPONENTS) as ComponentType[]).map(comp => (
-                  <MenuItem
-                    key={comp}
-                    value={comp}
-                    disabled={config.page2Components.includes(comp)}
-                  >
+                  <MenuItem key={comp} value={comp}>
                     {COMPONENTS[comp]}
                   </MenuItem>
                 ))}

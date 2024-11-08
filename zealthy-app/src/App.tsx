@@ -29,12 +29,7 @@ const App: React.FC = () => {
   }, []);
 
   const handleConfigUpdate = async (newConfig: Config) => {
-    try {
-      await api.updateConfig(newConfig);
-      setConfig(newConfig);
-    } catch (error) {
-      console.error("Failed to update config:", error);
-    }
+    setConfig(newConfig);
   };
 
   return (
